@@ -1,0 +1,116 @@
+# ==========================================
+# 1. Metadata & Execution
+# ==========================================
+seed: 0
+num_gpu: 1
+
+logging:
+  trackers: ["tensorboard", "wandb"]
+  project_name: "monster_train"
+  run_name: "exp4-pseudoGT_0.05-photo_0.1_buildings-smooth_0.1"
+  wandb:
+    entity: "Eurecat"
+    mode: "online"
+  image_log_frequency: 50
+
+# ==========================================
+# 2. Paths & Checkpoints
+# ==========================================
+# Change these paths if your checkpoints or output folder are elsewhere.
+logdir: "outputs/training"
+restore_ckpt: "checkpoints/monster++-mix_all.pth"
+depth_anything_v2_path: "checkpoints/depth_anything_v2_vitl.pth"
+
+# ==========================================
+# 3. Model Architecture
+# ==========================================
+encoder: "vitl"
+corr_implementation: "reg"
+corr_levels: 2
+corr_radius: 4
+n_downsample: 2
+n_gru_layers: 3
+hidden_dims: [128, 128, 128]
+max_disp: 576
+
+loss:
+  name: self_supervised_sequence_loss
+  params:
+    max_disp: 576
+    ignore_border: 32
+    loss_gamma: 0.9
+    lambda_photo: 0.1    # ON
+    lambda_pseudo: 0.05   # ON
+    lambda_smooth: 0.1   # ON
+    occlusion_mode: "zbuffer"
+    photometric_on_buildings_only: true
+
+# ==========================================
+# 4. Training Hyperparameters
+# ==========================================
+batch_size: 2
+image_size: 512
+max_step: 50000
+lr: 5e-5
+wdecay: 1e-5
+
+save_frequency: 2000
+val_frequency: 2000
+train_iters: 22
+valid_iters: 32
+skip_validation: false
+
+# ==========================================
+# 5. Dataset Configuration
+# ==========================================
+dataset: "dfc"
+dfc:
+  # Change this path if your released dataset lives elsewhere.
+  root: "data/diachronic-stereo-synthetic"
+  experiment_csv: "${dfc.root}/experiments/sub3_diachronic.csv"
+  disparity_dir: "${dfc.root}/disparity_maps/monster++"
+
+  train_aois_csv: "${dfc.root}/train_aois.csv"
+  val_aois_csv: "${dfc.root}/val_aois.csv"
+
+  return_geometry_masks: false
+  
+  use_water_masks: true
+  return_water_masks: false
+  mask_out_water: true
+
+  use_tree_masks: true
+  return_tree_masks: false
+  mask_out_trees: true
+
+  use_building_masks: true
+  return_building_masks: true
+  
+  image_ext: ".npy"
+  disparity_ext: ".iio"
+  mask_ext: ".npy"
+
+# ==========================================
+# 6. Data Augmentation
+# ==========================================
+augmentation:
+  crop_size: 512
+  min_scale: -0.2
+  max_scale: 0.4
+  stretch_prob: 0.8
+  max_stretch: 0.2
+  gamma_range: [1.0, 1.0, 1.0, 1.0]
+  asymmetric_prob: 0.2
+  eraser_prob: 0.5
+  do_flip: False
+  h_flip_prob: 0.5
+  v_flip_prob: 0.1
+  yjitter: False
+  saturation_range: [0.0, 1.4]
+  brightness: 0.4
+  contrast: 0.4
+  hue: 0.159
+
+  shift_p_apply: 0.5
+  shift_scale: 100.0
+  shift_max: null

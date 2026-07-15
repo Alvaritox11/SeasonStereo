@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+
+# Local environments
+.venv/
+venv/
+env/
+
+# Runtime outputs
+outputs/
+wandb/
+runs/
+logs/
+smoke_data/
+
+# Nested vendored-repo metadata
+.git
+.git/
+
+# Large release assets
+data/
+checkpoints/
+*.pth
+*.pt
+*.ckpt
+
+# OS/editor
+.DS_Store
+*.swp
