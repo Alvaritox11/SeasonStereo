@@ -6,10 +6,10 @@ This repository contains the release code for the SeasonStereo paper: training, 
 
 ## Links
 
-- Project page: coming soon
+- [Project page](https://alvaritox11.github.io/SeasonStereo/)
 - Paper: coming soon
-- Dataset: coming soon
-- Checkpoints: coming soon
+- [Dataset](https://huggingface.co/datasets/Alvaritox/seasonstereo-data)
+- [Checkpoints](https://huggingface.co/Alvaritox/seasonstereo)
 
 ## Repository Layout
 
@@ -21,7 +21,7 @@ This repository contains the release code for the SeasonStereo paper: training, 
 │   ├── segmentation/                      # water/tree/building mask inference
 │   ├── similarity/                        # pair metrics and pseudo-GT disparity helpers
 │   └── synthetic_data_generation/         # optional seasonal image generation
-├── others/project_page/                   # static project page draft
+├── docs/                                  # static project page draft
 ├── REPRODUCE_FROM_CROPPED_IMAGES.md       # minimal from-scratch smoke test
 ├── requirements.txt
 └── README.md
@@ -42,6 +42,18 @@ pip install -r requirements.txt
 The MonSter/MonSter++ wrapper requires the vendored MonSter code and a Depth-Anything V2 checkpoint. The expected checkpoint paths are listed below.
 
 ## Data And Checkpoints
+
+| Asset | Location |
+| --- | --- |
+| Data (test/val splits, cropped tiles, seasonal variants, masks, train subset) | [Alvaritox/seasonstereo-data](https://huggingface.co/datasets/Alvaritox/seasonstereo-data) |
+| SeasonStereo checkpoint | [Alvaritox/seasonstereo](https://huggingface.co/Alvaritox/seasonstereo) |
+
+```bash
+pip install -U "huggingface_hub[cli]"
+
+hf download Alvaritox/seasonstereo-data --repo-type dataset --local-dir data
+hf download Alvaritox/seasonstereo season-stereo-final.pth --local-dir checkpoints
+```
 
 Expected local layout after downloading the release assets:
 
@@ -71,9 +83,17 @@ checkpoints/
   openearthmap_segformer_mit-b2.pt
 ```
 
+The download layout differs slightly from the layout the scripts expect. After downloading, move `segmentation_masks/{water,tree,building}_segmentation/` to `data/` and `diachronic-stereo-synthetic/synchronic_only/` to `data/synchronic_only/`.
+
 The scripts and configs use these relative paths directly. If your folders are elsewhere, edit the path lines in the relevant `.sh` file or YAML config, or pass Hydra overrides on the command line.
 
-If you do not want to download the full preprocessed dataset, follow [REPRODUCE_FROM_CROPPED_IMAGES.md](REPRODUCE_FROM_CROPPED_IMAGES.md). That guide uses only a small subset of cropped real/synthetic images, reference homographies, and checkpoints to verify the full pipeline.
+
+### Full training split
+
+The full rectified training split (~700 GB across 77 AOIs) is **not distributed**. The dataset repository ships `diachronic-stereo-synthetic/train_subset/`, a single-AOI sample with the exact same structure, so the data format and the training loop can be inspected and run end to end.
+
+To build the complete training split, run the generation pipeline on the released cropped tiles as described in [REPRODUCE_FROM_CROPPED_IMAGES.md](REPRODUCE_FROM_CROPPED_IMAGES.md). Every input it needs is in the dataset repository: real crops, seasonal variants, `synchronic_only` reference pairs and homographies, and semantic masks. Dropping the `--limit` and `--max-reference-pairs` flags reproduces the full split rather than the smoke-test subset.
+
 
 ## Training
 
@@ -121,7 +141,3 @@ The final citation will be added after publication metadata is available.
   year      = {2026}
 }
 ```
-
-## Acknowledgements
-
-This release builds on open stereo and monocular-depth work, including MonSter/MonSter++, Depth-Anything V2, FoundationStereo, and DINOv3. Semantic masks are produced with an OpenEarthMap-style SegFormer model.
