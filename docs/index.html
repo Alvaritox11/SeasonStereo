@@ -7,6 +7,15 @@
       name="description"
       content="SeasonStereo: robust dense stereo matching for multi-date satellite imagery via generative AI."
     >
+    <meta property="og:title" content="SeasonStereo">
+    <meta
+      property="og:description"
+      content="Robust dense stereo matching for multi-date satellite imagery via generative AI."
+    >
+    <meta property="og:image" content="https://alvaritox11.github.io/SeasonStereo/assets/teaser.png">
+    <meta property="og:url" content="https://alvaritox11.github.io/SeasonStereo/">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
     <title>SeasonStereo | Multi-Date Satellite Stereo</title>
     <link rel="stylesheet" href="./styles.css?v=2">
   </head>
@@ -36,9 +45,21 @@
           </p>
           <div class="link-row" aria-label="Project links">
             <a href="#citation">Paper</a>
-            <a href="#release">Code</a>
-            <a href="#release">Dataset</a>
-            <a href="#release">Checkpoints</a>
+            <a
+              href="https://github.com/Alvaritox11/SeasonStereo"
+              target="_blank"
+              rel="noopener"
+            >Code</a>
+            <a
+              href="https://huggingface.co/datasets/Alvaritox/seasonstereo-data"
+              target="_blank"
+              rel="noopener"
+            >Dataset</a>
+            <a
+              href="https://huggingface.co/Alvaritox/seasonstereo"
+              target="_blank"
+              rel="noopener"
+            >Checkpoint</a>
           </div>
           <figure class="teaser-figure">
             <img
@@ -188,6 +209,13 @@
               SeasonStereo fine-tuning, evaluation scripts, loss functions, configs,
               and the MonSter++ wrapper used in the experiments.
             </p>
+            <p class="release-link">
+              <a
+                href="https://github.com/Alvaritox11/SeasonStereo/tree/main/season_stereo"
+                target="_blank"
+                rel="noopener"
+              >season_stereo/ on GitHub</a>
+            </p>
           </article>
           <article>
             <h3>Preprocessing</h3>
@@ -195,12 +223,34 @@
               Rectification, semantic-mask generation, similarity scoring, pair
               selection, and pseudo-ground-truth disparity generation.
             </p>
+            <p class="release-link">
+              <a
+                href="https://github.com/Alvaritox11/SeasonStereo/tree/main/preprocessing"
+                target="_blank"
+                rel="noopener"
+              >preprocessing/ on GitHub</a>
+            </p>
           </article>
           <article>
             <h3>Data And Weights</h3>
             <p>
-              The public release is organized so large datasets, generated seasonal
-              images, disparity products, and checkpoints can live on Hugging Face.
+              Validation and test splits, cropped real tiles and their seasonal variants,
+              semantic masks, a single-AOI sample of the training split, and the trained
+              checkpoint. The full training split is not distributed; it is regenerated
+              with the preprocessing pipeline.
+            </p>
+            <p class="release-link">
+              <a
+                href="https://huggingface.co/datasets/Alvaritox/seasonstereo-data"
+                target="_blank"
+                rel="noopener"
+              >Dataset on Hugging Face</a>
+              &middot;
+              <a
+                href="https://huggingface.co/Alvaritox/seasonstereo"
+                target="_blank"
+                rel="noopener"
+              >Checkpoint on Hugging Face</a>
             </p>
           </article>
         </div>
@@ -222,8 +272,8 @@
 
     <footer>
       <p>
-        Final author list, venue metadata, paper URL, code URL, dataset URL, and checkpoint URL
-        will be added with the public camera-ready release.
+        Code, data, and the trained checkpoint are already available. The final author list,
+        venue metadata, and paper URL will be added with the public camera-ready release.
       </p>
     </footer>
 

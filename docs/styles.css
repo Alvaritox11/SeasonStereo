@@ -523,6 +523,22 @@ h1 {
   font-size: 1.24rem;
 }
 
+.release-grid .release-link {
+  margin-top: 16px;
+}
+
+.release-grid .release-link a {
+  color: var(--forest-dark);
+  font-weight: 800;
+  border-bottom: 1px solid rgba(31, 111, 91, 0.35);
+}
+
+.release-grid .release-link a:hover,
+.release-grid .release-link a:focus-visible {
+  color: var(--forest);
+  border-bottom-color: var(--forest);
+}
+
 .table-wrap {
   overflow-x: auto;
   margin-bottom: 34px;
