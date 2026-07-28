@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      name="description"
+      content="SeasonStereo: robust dense stereo matching for multi-date satellite imagery via generative AI."
+    >
+    <title>SeasonStereo | Multi-Date Satellite Stereo</title>
+    <link rel="stylesheet" href="./styles.css?v=2">
+  </head>
+  <body>
+    <header class="site-header" aria-label="Site header">
+      <a class="brand" href="#top">SeasonStereo</a>
+      <nav aria-label="Main navigation">
+        <a href="#abstract">Abstract</a>
+        <a href="#overview">Overview</a>
+        <a href="#synthetic">Synthetic Data</a>
+        <a href="#viewer">3D Mesh</a>
+        <a href="#release">Release</a>
+        <a href="#citation">Citation</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-content">
+          <p class="paper-status">ECCV 2026 submission</p>
+          <h1 id="hero-title">SeasonStereo</h1>
+          <p class="hero-subtitle">
+            Robust dense stereo matching for multi-date satellite imagery via generative AI.
+          </p>
+          <p class="authors">
+            Author list to be added after camera-ready release.
+          </p>
+          <div class="link-row" aria-label="Project links">
+            <a href="#citation">Paper</a>
+            <a href="#release">Code</a>
+            <a href="#release">Dataset</a>
+            <a href="#release">Checkpoints</a>
+          </div>
+          <figure class="teaser-figure">
+            <img
+              class="teaser-image"
+              src="./assets/teaser.png"
+              alt="Paper teaser figure for SeasonStereo."
+            >
+          </figure>
+        </div>
+      </section>
+
+      <section class="section abstract-section" id="abstract" aria-labelledby="abstract-title">
+        <div class="section-heading">
+          <p class="eyebrow">Abstract</p>
+          <h2 id="abstract-title">Learning Dense Stereo Across Dates</h2>
+        </div>
+        <p class="abstract-text">
+          Accurate 3D reconstruction from satellite imagery typically relies on 
+          near-simultaneous stereo pairs, limiting its applicability to diachronic 
+          settings where multi-date images exhibit varying seasonal and illumination 
+          conditions. Training dense stereo matching models robust to appearance 
+          changes is a long-standing challenge, as aligned multi-date imagery and 
+          ground-truth geometry are costly to obtain at scale. We propose SeasonStereo, 
+          a scalable framework that addresses disparity estimation from diachronic 
+          satellite images by training on synthetic image pairs with controlled seasonal 
+          appearance variation, while leveraging zero-shot geometric priors from 
+          foundation models. SeasonStereo matches the disparity accuracy of 
+          state-of-the-art LiDAR-supervised models, while producing sharper geometric 
+          details without requiring real aligned multi-date training products or 
+          LiDAR-derived labels. As a result, SeasonStereo offers a practical path toward 
+          large-scale 3D reconstruction from heterogeneous satellite images with reduced 
+          supervision cost.
+        </p>
+      </section>
+
+      <section class="section section-intro" id="overview" aria-labelledby="overview-title">
+        <div class="section-heading">
+          <p class="eyebrow">Overview</p>
+          <h2 id="overview-title">Stereo Under Seasonal Change</h2>
+          <p>
+            SeasonStereo starts from a conservative set of reliable synchronic satellite
+            stereo pairs, expands them into seasonal variants, and fine-tunes a strong
+            stereo foundation model so dense matching remains stable when the two views
+            come from different dates.
+          </p>
+        </div>
+
+        <div class="stat-grid" aria-label="Key paper facts">
+          <article>
+            <strong>871</strong>
+            <span>high-consistency synchronic pairs selected from 1,565 candidates</span>
+          </article>
+          <article>
+            <strong>21,775</strong>
+            <span>rectified training pairs after seasonal generation and pair expansion</span>
+          </article>
+          <article>
+            <strong>1.05 m</strong>
+            <span>average altitude MAE, matching the LiDAR-supervised variant</span>
+          </article>
+        </div>
+      </section>
+
+      <section class="section synthetic-section" id="synthetic" aria-labelledby="synthetic-title">
+        <div class="section-heading">
+          <p class="eyebrow">Synthetic Data</p>
+          <h2 id="synthetic-title">Seasonal Appearance, Preserved Geometry</h2>
+          <p>
+            Each selected crop is edited into four seasonal variants. The release
+            page shows one Omaha crop and its generated spring, summer, autumn, and
+            winter appearances.
+          </p>
+        </div>
+        <div class="synthetic-grid" aria-label="Synthetic generation examples">
+          <figure>
+            <img src="./assets/synthetic_real.png?v=2" alt="Original Omaha satellite crop.">
+            <figcaption>Real image</figcaption>
+          </figure>
+          <figure>
+            <img src="./assets/synthetic_summer.png?v=2" alt="Summer synthetic Omaha crop.">
+            <figcaption>Synthetic summer</figcaption>
+          </figure>
+          <figure>
+            <img src="./assets/synthetic_autumn.png?v=2" alt="Autumn synthetic Omaha crop.">
+            <figcaption>Synthetic autumn</figcaption>
+          </figure>
+          <figure>
+            <img src="./assets/synthetic_winter.png?v=2" alt="Winter synthetic Omaha crop.">
+            <figcaption>Synthetic winter</figcaption>
+          </figure>
+          <figure>
+            <img src="./assets/synthetic_spring.png?v=2" alt="Spring synthetic Omaha crop.">
+            <figcaption>Synthetic spring</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="viewer-band" id="viewer" aria-labelledby="viewer-title">
+        <div class="section-heading">
+          <p class="eyebrow">Interactive Mesh</p>
+          <h2 id="viewer-title">Geometry Viewer</h2>
+          <p>
+            The viewer uses real output products for the Omaha diachronic pair
+            <code>OMA_084_042_RGB-OMA_084_016_RGB</code>. Disparity surfaces show
+            image-space matching structure, while DSM surfaces show metric height
+            relative to each DSM's local minimum.
+          </p>
+        </div>
+
+        <div class="viewer-layout">
+          <div class="viewer-panel">
+            <div id="terrain-viewer" aria-label="Interactive 3D terrain viewer"></div>
+          </div>
+
+          <div class="viewer-settings" aria-label="Viewer controls">
+            <div class="model-list" role="group" aria-label="Model">
+              <span class="model-list-label">Model</span>
+              <button data-model="lidargt" type="button">LiDAR GT</button>
+              <button data-model="monsterpp" type="button">MonSter++</button>
+              <button data-model="diachronic" type="button">Diachronic Stereo</button>
+              <button data-model="lidar" type="button">LiDAR-supervised variant</button>
+              <button data-model="pseudogt" type="button">Pseudo-GT only</button>
+              <button data-model="photo" type="button">Pseudo-GT + photo</button>
+              <button class="is-active" data-model="ours" type="button">SeasonStereo</button>
+            </div>
+            <div class="button-group" aria-label="Product">
+              <button class="is-active" data-product="disparity" type="button">Disparity</button>
+              <button data-product="dsm" type="button">DSM</button>
+            </div>
+            <div class="button-group" aria-label="Layer">
+              <button class="is-active" data-layer="surface" type="button">Surface</button>
+              <button data-layer="wire" type="button">Wire</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section reproduce-section" id="release" aria-labelledby="release-title">
+        <div class="section-heading">
+          <p class="eyebrow">Release</p>
+          <h2 id="release-title">Reproducibility Package</h2>
+        </div>
+        <div class="release-grid">
+          <article>
+            <h3>Training Pipeline</h3>
+            <p>
+              SeasonStereo fine-tuning, evaluation scripts, loss functions, configs,
+              and the MonSter++ wrapper used in the experiments.
+            </p>
+          </article>
+          <article>
+            <h3>Preprocessing</h3>
+            <p>
+              Rectification, semantic-mask generation, similarity scoring, pair
+              selection, and pseudo-ground-truth disparity generation.
+            </p>
+          </article>
+          <article>
+            <h3>Data And Weights</h3>
+            <p>
+              The public release is organized so large datasets, generated seasonal
+              images, disparity products, and checkpoints can live on Hugging Face.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section citation-section" id="citation" aria-labelledby="citation-title">
+        <div class="section-heading">
+          <p class="eyebrow">Paper</p>
+          <h2 id="citation-title">Citation</h2>
+        </div>
+        <pre><code>@inproceedings{seasonstereo2026,
+  title     = {SeasonStereo: Robust Dense Stereo Matching for Multi-Date Satellite Imagery via Generative AI},
+  author    = {Authors},
+  booktitle = {Venue},
+  year      = {2026}
+}</code></pre>
+      </section>
+    </main>
+
+    <footer>
+      <p>
+        Final author list, venue metadata, paper URL, code URL, dataset URL, and checkpoint URL
+        will be added with the public camera-ready release.
+      </p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="./viewer.js"></script>
+  </body>
+</html>
