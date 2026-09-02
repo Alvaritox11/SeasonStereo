@@ -141,3 +141,33 @@ The final citation will be added after publication metadata is available.
   year      = {2026}
 }
 ```
+
+## Acknowledgments
+ 
+The non-synthetic satellite images used in this project originate from the [2019 IEEE GRSS Data Fusion Contest (DFC2019)](https://ieee-dataport.org/open-access/data-fusion-contest-2019-dfc2019),
+Track 3. The original WorldView-3 imagery is provided courtesy of **DigitalGlobe** (now Maxar). The DFC2019 dataset was organized by the IEEE GRSS Image Analysis and Data Fusion Technical Committee (IADF TC), the **Johns Hopkins University Applied Physics Laboratory** (JHU/APL), and the **Intelligence Advanced Research Projects Activity** (IARPA). All non-synthetic images and their copyright remain the property of their respective owners.
+ 
+We are grateful to the DFC2019 organizers and data providers for making this large-scale satellite stereo dataset publicly available and enabling further research in 3D reconstruction from satellite imagery.
+ 
+If you use our dataset, please also cite the original DFC2019 references:
+ 
+```bibtex
+@inproceedings{bosch2019semantic,
+  title     = {Semantic Stereo for Incidental Satellite Images},
+  author    = {Bosch, Marc and Foster, Kevin and Christie, Gordon and Wang, Sean and Hager, Gregory D. and Brown, Myron},
+  booktitle = {2019 IEEE Winter Conference on Applications of Computer Vision (WACV)},
+  pages     = {1524--1532},
+  year      = {2019},
+  organization = {IEEE}
+}
+ 
+@article{le_saux2019dfc,
+  title   = {2019 IEEE GRSS Data Fusion Contest: Large-Scale Semantic 3D Reconstruction},
+  author  = {Le Saux, Bertrand and Yokoya, Naoto and H{\"a}nsch, Ronny and Brown, Myron},
+  journal = {IEEE Geoscience and Remote Sensing Magazine},
+  volume  = {7},
+  number  = {4},
+  pages   = {33--36},
+  year    = {2019}
+}
+```
