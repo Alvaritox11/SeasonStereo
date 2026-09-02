@@ -7,7 +7,7 @@ This repository contains the release code for the SeasonStereo paper: training, 
 ## Links
 
 - [Project page](https://alvaritox11.github.io/SeasonStereo/)
-- Paper: coming soon
+- [Paper](https://arxiv.org/abs/2607.27139)
 - [Dataset](https://huggingface.co/datasets/Alvaritox/seasonstereo-data)
 - [Checkpoints](https://huggingface.co/Alvaritox/seasonstereo)
 
@@ -134,10 +134,10 @@ Each preprocessing folder has a dedicated README:
 The final citation will be added after publication metadata is available.
 
 ```bibtex
-@inproceedings{seasonstereo2026,
-  title     = {SeasonStereo: Diachronic Stereo Matching for Multi-Date Satellite Imagery},
-  author    = {Authors},
-  booktitle = {Venue},
+@inproceedings{diaz-laureano2026seasonstereo,
+  title     = {SeasonStereo: Robust Dense Stereo Matching for Multi-Date Satellite Imagery via Generative AI},
+  author    = {D{\'\i}az-Laureano, {\'A}lvaro and Mar{\'\i}, Roger and Masquil, El{\'\i}as and Arias, Pablo and Facciolo, Gabriele},
+  booktitle = {Proceedings of the TerraBytes II Workshop at the European Conference on Computer Vision (ECCV)},
   year      = {2026}
 }
 ```
